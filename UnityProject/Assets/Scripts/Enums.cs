@@ -8,13 +8,12 @@ public static class Enums
     {
         None,
         Spider,
-        Cockroach
     }
 
     public static Dictionary<EnemyType, string> Prefabs = new Dictionary<EnemyType, string>()
     {
         { EnemyType.Spider, "Prefabs/Spider"},
-        { EnemyType.Cockroach, "Prefabs/Cockroach" }
+        //{ EnemyType.Cockroach, "Prefabs/Cockroach" }
     };
 }
 

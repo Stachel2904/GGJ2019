@@ -53,7 +53,27 @@ public class Enemy : MonoBehaviour
         this.transform.LookAt(GetTarget());
         this.transform.Rotate(Vector3.up*180);
 
-        this.Position = GetTarget();
+
+
+        this.Position = DodgePlayer();
+    }
+
+    /// <summary>
+    /// Trys to dodge the Player, with a orthogonal movement direction.
+    /// </summary>
+    /// <returns>Returns Vector3 with move direction.</returns>
+    public virtual Vector3 DodgePlayer()
+    {
+        Vector3 playerPos = GameObject.Find("Ball").GetComponent<Transform>().position;
+
+        float dist = Vector3.Distance(Position, playerPos);
+
+        if (dist <= 50)
+        {
+            return Vector3.Cross(playerPos, Position)*10;
+        }
+
+        return GetTarget();
     }
 
     /// <summary>
