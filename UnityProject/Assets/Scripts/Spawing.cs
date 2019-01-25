@@ -5,14 +5,14 @@ using UnityEngine;
 public class Spawing : MonoBehaviour
 {
     [SerializeField]
-    private static int numSpawnPoints;
+    private int numSpawnPoints = 2;
     public int NumSpawnPoints { get { return numSpawnPoints; } set { numSpawnPoints = value; } }
 
     [SerializeField]
-    private static Vector3[] spawnPoints;
+    private Vector3[] spawnPoints;
     public Vector3[] SpawnPoints { get { return spawnPoints; } set { spawnPoints = value; } }
 
-    private static Enemy[] lastEnemyAtSpawnPoint;
+    private Enemy[] lastEnemyAtSpawnPoint = new Enemy[2];
 
     public static Spawing Get()
     {
@@ -28,7 +28,7 @@ public class Spawing : MonoBehaviour
     /// Picks random one of the possible SpawingPoints for a Enemy.
     /// </summary>
     /// <returns>Returns Vector3 with Position of SpawingPoint.</returns>
-    public static int GetSpawnPoint()
+    public int GetSpawnPoint()
     {
         return Random.Range(0, numSpawnPoints);
     }
@@ -40,18 +40,19 @@ public class Spawing : MonoBehaviour
     /// <returns>IEnumerator</returns>
     public static IEnumerator SpawnEnemy(Enums.EnemyType type)
     {
-        int pos = GetSpawnPoint();
-
-        while (lastEnemyAtSpawnPoint[pos] != null && Vector3.Distance(lastEnemyAtSpawnPoint[pos].Position, spawnPoints[pos]) >= 0.5f)
+        int pos = Get().GetSpawnPoint();
+        
+        while (Get().lastEnemyAtSpawnPoint[pos] != null && Vector3.Distance(Get().lastEnemyAtSpawnPoint[pos].Position, Get().spawnPoints[pos]) <= 10f)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.1f); // Random.Range(0.1f, (100 - Mathf.Log(Gamster.Get().killedEnemys) - Gamster.Get().killedEnemys)));
+            
         }
+        
+        Enemy enemy = Instantiate<Enemy>(Resources.Load<Enemy>(Enums.Prefabs[type]), Get().spawnPoints[pos], Quaternion.Euler(Vector3.zero));
 
-        Enemy enemy = Instantiate<Enemy>(Resources.Load<Enemy>(Enums.Prefabs[type]), spawnPoints[pos], Quaternion.Euler(Vector3.zero));
-
+        enemy.type = type;
+        
         Gamster.Get().enemys.Add(enemy);
+        Get().lastEnemyAtSpawnPoint[pos] = enemy;
     }
-
-    
-
 }

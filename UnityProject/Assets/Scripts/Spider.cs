@@ -9,33 +9,13 @@ public sealed class Spider : Enemy
 
     }
 
-    public override void Update()
+    public override void UpdateEnemy()
     {
-        if (this.Health <= 0)
-        {
-            TryDestroy();
-            return;
-        }
-
-
+        base.UpdateEnemy();
     }
 
     public override void MoveToTarget()
     {
         base.MoveToTarget();
-    }
-
-    /// <summary>
-    /// Trys to remove this Spider form the enemies list.
-    /// </summary>
-    /// <returns>Returns true if succesfull.</returns>
-    public bool TryDestroy()
-    {
-        if (Gamster.Get().enemys.Remove(this))
-        {
-            return true;
-        }
-
-        return false;
     }
 }
