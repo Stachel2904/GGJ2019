@@ -8,6 +8,7 @@ public class Gamster : MonoBehaviour
 {
     public List<Enemy> enemys;
     public int[] enemyNums;
+    public Transform Target;
 
     public int killedEnemys;
 
@@ -30,7 +31,8 @@ public class Gamster : MonoBehaviour
         {
             if (enemys.Where(e => e.type == (Enums.EnemyType) i).Count() < enemyNums[i-1])
             {
-                StartCoroutine(Spawing.SpawnEnemy((Enums.EnemyType) i));
+                StartCoroutine(Spawing.SpawnEnemy(Enums.EnemyType.Spider));
+                //StartCoroutine(Spawing.SpawnEnemy((Enums.EnemyType) i));
             }
         }
     }

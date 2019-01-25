@@ -5,12 +5,12 @@ using UnityEngine;
 public class Spawing : MonoBehaviour
 {
     [SerializeField]
-    private int numSpawnPoints = 2;
+    private int numSpawnPoints;
     public int NumSpawnPoints { get { return numSpawnPoints; } set { numSpawnPoints = value; } }
 
     [SerializeField]
-    private Vector3[] spawnPoints;
-    public Vector3[] SpawnPoints { get { return spawnPoints; } set { spawnPoints = value; } }
+    private Transform[] spawnPoints;
+    public Transform[] SpawnPoints { get { return spawnPoints; } set { spawnPoints = value; } }
 
     private Enemy[] lastEnemyAtSpawnPoint = new Enemy[2];
 
@@ -21,6 +21,7 @@ public class Spawing : MonoBehaviour
 
     public void Start()
     {
+        numSpawnPoints = SpawnPoints.Length;
         lastEnemyAtSpawnPoint = new Enemy[numSpawnPoints];
     }
 
@@ -42,13 +43,12 @@ public class Spawing : MonoBehaviour
     {
         int pos = Get().GetSpawnPoint();
         
-        while (Get().lastEnemyAtSpawnPoint[pos] != null && Vector3.Distance(Get().lastEnemyAtSpawnPoint[pos].Position, Get().spawnPoints[pos]) <= 10f)
+        while (Get().lastEnemyAtSpawnPoint[pos] != null && Vector3.Distance(Get().lastEnemyAtSpawnPoint[pos].Position, Get().spawnPoints[pos].position) <= 10f)
         {
             yield return new WaitForSeconds(0.1f); // Random.Range(0.1f, (100 - Mathf.Log(Gamster.Get().killedEnemys) - Gamster.Get().killedEnemys)));
             
         }
-        
-        Enemy enemy = Instantiate<Enemy>(Resources.Load<Enemy>(Enums.Prefabs[type]), Get().spawnPoints[pos], Quaternion.Euler(Vector3.zero));
+        Enemy enemy = Instantiate<Enemy>(Resources.Load<Enemy>(Enums.Prefabs[type]), Get().spawnPoints[pos].position, Quaternion.Euler(Vector3.zero));
 
         enemy.type = type;
         
