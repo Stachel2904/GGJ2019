@@ -6,7 +6,17 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField]
     private Vector3 position;
-    public Vector3 Position { get; set; }
+    public Vector3 Position {
+        get
+        {
+            return position;
+        }
+        set
+        {
+            position += value;
+            this.gameObject.GetComponent<Rigidbody>().velocity = this.gameObject.GetComponent<Transform>().TransformDirection(new Vector3(value.x, this.gameObject.GetComponent<Rigidbody>().velocity.y, value.z));
+        }
+    }
 
     [SerializeField]
     private int health;
@@ -35,6 +45,6 @@ public class Enemy : MonoBehaviour
 
     public virtual void MoveToTarget()
     {
-        
+        this.position += Vector3.one;
     }
 }

@@ -11,7 +11,18 @@ public sealed class Spider : Enemy
 
     public override void Update()
     {
-        
+        if (this.Health <= 0)
+        {
+            TryDestroy();
+            return;
+        }
+
+
+    }
+
+    public override void MoveToTarget()
+    {
+        base.MoveToTarget();
     }
 
     /// <summary>

@@ -19,6 +19,8 @@ public class Gamster : MonoBehaviour
         {
             enemys[i].Update();
         }
+
+        StartCoroutine(Spawing.SpawnEnemy(Enums.EnemyType.Spider));
     }
 
     public static Gamster Get()
