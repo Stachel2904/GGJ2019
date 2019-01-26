@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class HUDManager : MonoBehaviour
 {
@@ -11,6 +12,11 @@ public class HUDManager : MonoBehaviour
     public static HUDManager Get()
     {
         return GameObject.Find("HUD").GetComponent<HUDManager>();
+    }
+
+    void Update()
+    {
+        GameObject.Find("HUD").transform.Find("ScoreBG").Find("Text").gameObject.GetComponent<Text>().text = (Gamster.Get().killedEnemys * 25).ToString();
     }
 
     // Update is called once per frame

@@ -13,7 +13,7 @@ public class Spawing : MonoBehaviour
     private Transform[] spawnPoints;
     public Transform[] SpawnPoints { get { return spawnPoints; } set { spawnPoints = value; } }
 
-    private Enemy[] lastEnemyAtSpawnPoint = new Enemy[2];
+    private Enemy[] lastEnemyAtSpawnPoint;
 
     public static Spawing Get()
     {
@@ -33,6 +33,12 @@ public class Spawing : MonoBehaviour
     public int GetSpawnPoint()
     {
         return UnityEngine.Random.Range(0, numSpawnPoints);
+    }
+
+    public bool GetSpawnPoint(out int pos)
+    {
+        pos = UnityEngine.Random.Range(0, numSpawnPoints);
+        return true;
     }
 
     /// <summary>

@@ -49,18 +49,6 @@ public class Enemy : MonoBehaviour
 
         MoveToTarget();
         CheckTargetReached();
-
-        //if (GetDistanceToPlayer() <= 40f)
-        //{
-        //    agent.isStopped = true;
-        //    MoveToTarget();
-        //}
-        //else
-        //{
-        //    this.transform.Rotate(Vector3.up * 180);
-        //    agent.isStopped = false;
-        //}
-
     }
 
     /// <summary>
@@ -98,7 +86,7 @@ public class Enemy : MonoBehaviour
 
     protected float GetDistanceToPlayer()
     {
-        Vector3 playerPos = GameObject.Find("Ball").GetComponent<Transform>().position;
+        Vector3 playerPos = GetPlayerPosition();
 
         float dist = Vector3.Distance(Position, playerPos);
 
@@ -107,7 +95,17 @@ public class Enemy : MonoBehaviour
 
     protected Vector3 GetPlayerDirection()
     {
-        return GameObject.Find("Ball").GetComponent<Transform>().forward;
+        return GameObject.Find("Player").GetComponent<Rigidbody>().velocity;
+    }
+
+    protected Vector3 GetPlayerPosition()
+    {
+        return GameObject.Find("Ball").GetComponent<Transform>().position;
+    }
+
+    protected Vector3 GetOwnDirection()
+    {
+        return this.gameObject.GetComponent<Transform>().forward;
     }
 
     private float DistanceToTarget()
