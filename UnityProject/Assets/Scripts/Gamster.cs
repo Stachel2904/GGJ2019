@@ -6,11 +6,15 @@ using System;
 
 public class Gamster : MonoBehaviour
 {
+    [SerializeField]
+    private int masterLife;
+    public int MasterLife { get { return masterLife; } set { masterLife = value; } }
+
     public List<Enemy> enemys;
     public int[] enemyNums;
     public Transform Target;
 
-    public int killedEnemys;
+    public int killedEnemys;  //Score
     public int coRoutines;
 
     // Start is called before the first frame update
@@ -34,8 +38,6 @@ public class Gamster : MonoBehaviour
         {
             enemys[i].UpdateEnemy();
         }
-
-        
     }
 
     public static Gamster Get()

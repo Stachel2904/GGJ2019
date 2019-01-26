@@ -43,11 +43,12 @@ public class Enemy : MonoBehaviour
     {
         if (this.Health <= 0)
         {
-            TryDestroy();
+            TryRemove();
             return;
         }
 
         MoveToTarget();
+        CheckTargetReached();
 
         //if (GetDistanceToPlayer() <= 40f)
         //{
@@ -110,29 +111,56 @@ public class Enemy : MonoBehaviour
         return dist;
     }
 
+    private float DistanceToTarget()
+    {
+        return Vector3.Distance(this.Position, GetTarget());
+    }
+
+    public void CheckTargetReached()
+    {
+        if (DistanceToTarget() <= 5)
+        {
+            Gamster.Get().MasterLife -= 5;
+            TryRemove(true);
+        }
+    }
+
     /// <summary>
     /// Trys to remove this Spider form the enemies list.
     /// </summary>
     /// <returns>Returns true if succesfull.</returns>
-    public bool TryDestroy()
+    public bool TryRemove(bool target = false)
     {
-        if (Gamster.Get().enemys.Remove(this))
+        if (target)
         {
-            Destroy(this.gameObject);
-            Gamster.Get().killedEnemys++;
-            GameObject.Find("Player").GetComponent<PlayerBehaviour>().CurrentScorePoints += 25;
-            return true;
+            if (Gamster.Get().enemys.Remove(this))
+            {
+                Destroy(this.gameObject);
+
+                return true;
+            }
         }
+        else
+        {
+            if (Gamster.Get().enemys.Remove(this))
+            {
+                Gamster.Get().killedEnemys++;
+
+                return true;
+            }
+        }
+        
 
         return false;
     }
 
     public IEnumerator Squish()
     {
+        TryRemove();
 
         Destroy(this.gameObject.GetComponent<BoxCollider>());
         Destroy(this.gameObject.GetComponent<Animator>());
-        Gamster.Get().enemys.Remove(this);
+
         while(this.gameObject.transform.localScale.y - (Time.deltaTime / 10) > 0.0001f)
         {
             this.gameObject.transform.localScale = new Vector3(this.gameObject.transform.localScale.x, this.gameObject.transform.localScale.y - (Time.deltaTime / 10), this.gameObject.transform.localScale.z);
@@ -144,7 +172,8 @@ public class Enemy : MonoBehaviour
             this.gameObject.transform.localScale = new Vector3(this.gameObject.transform.localScale.x - (Time.deltaTime / 10), 0.0001f , this.gameObject.transform.localScale.z - (Time.deltaTime / 10));
             yield return new WaitForEndOfFrame();
         }
-       GameObject.Destroy(this.gameObject);
+
+        Destroy(this.gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
