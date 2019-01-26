@@ -19,6 +19,7 @@ public class HUDManager : MonoBehaviour
         RectTransform mask = this.gameObject.transform.Find("LPBarMask").GetComponent<RectTransform>();
 
         Vector3 newMaskPos = new Vector2(-1 * (Screen.width / maxLP) * (maxLP - currentLP) + Screen.width / 2, mask.position.y);
+        
         Vector3 Movement = mask.position - newMaskPos;
         mask.position = newMaskPos;
         mask.GetChild(0).position += Movement;
