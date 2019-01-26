@@ -11,6 +11,7 @@ public class BallMovement : MonoBehaviour
     //public float factor;
 
     private Rigidbody rb;
+    public Animator HamtaroController;
     public float turnSpeed;
 
     // Start is called before the first frame update
@@ -36,6 +37,11 @@ public class BallMovement : MonoBehaviour
         else
         {
             rb.velocity *= autoBrake;
+            //rb.velocity = cam.transform.TransformDirection(rb.velocity);
         }
+
+        HamtaroController.SetFloat("CurrentSpeed", rb.velocity.magnitude);
+        HamtaroController.transform.localPosition = new Vector3(0.0f, -0.45f + rb.velocity.magnitude * 0.002f, 0.125f + rb.velocity.magnitude * 0.002f);
+        HamtaroController.transform.localRotation = Quaternion.Euler(-0.3f * rb.velocity.magnitude, HamtaroController.transform.localRotation.y, 0);
     }
 }

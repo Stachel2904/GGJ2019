@@ -53,8 +53,10 @@ public class HamtaroRotation : MonoBehaviour
         {
             rotateSTuff(-135);
         }
-
-
+        if(this.gameObject.transform.parent.gameObject.GetComponent<Rigidbody>().velocity != Vector3.zero)
+        {
+            this.gameObject.transform.rotation = Quaternion.LookRotation(this.gameObject.transform.parent.gameObject.GetComponent<Rigidbody>().velocity, Vector3.up);
+        }
 
     }
 
