@@ -160,12 +160,17 @@ public class Enemy : MonoBehaviour
         Destroy(this.gameObject.GetComponent<BoxCollider>());
         Destroy(this.gameObject.GetComponent<Animator>());
 
+        ParticleSystem squishEffect = Instantiate(Resources.Load<ParticleSystem>("Prefabs/Effekte/SpiderSplashParticleEffekt"), this.gameObject.transform);
+        squishEffect.gameObject.transform.position = this.gameObject.transform.position;
+        squishEffect.Play();
+
         while(this.gameObject.transform.localScale.y - (Time.deltaTime / 10) > 0.0001f)
         {
             this.gameObject.transform.localScale = new Vector3(this.gameObject.transform.localScale.x, this.gameObject.transform.localScale.y - (Time.deltaTime / 10), this.gameObject.transform.localScale.z);
             yield return new WaitForEndOfFrame();
         }
         yield return new WaitForSeconds(1);
+        GameObject.Destroy(squishEffect.gameObject);
         while(this.gameObject.transform.localScale.x > 0 && this.gameObject.transform.localScale.z > 0)
         {
             this.gameObject.transform.localScale = new Vector3(this.gameObject.transform.localScale.x - (Time.deltaTime / 10), 0.0001f , this.gameObject.transform.localScale.z - (Time.deltaTime / 10));

@@ -17,6 +17,8 @@ public class Gamster : MonoBehaviour
     public int killedEnemys;  //Score
     public int coRoutines;
 
+    private float SpawnRate = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +39,15 @@ public class Gamster : MonoBehaviour
         for (int i = 0; i < enemys.Count; i++)
         {
             enemys[i].UpdateEnemy();
+        }
+        if(SpawnRate > 10.0f)
+        {
+            enemyNums[(int)Enums.EnemyType.Spider - 1]++;
+            SpawnRate = 0;
+        }
+        else
+        {
+            SpawnRate += Time.deltaTime;
         }
     }
 

@@ -45,16 +45,24 @@ public class Spawing : MonoBehaviour
         int index = Gamster.Get().coRoutines + 1;
         Gamster.Get().coRoutines++;
         Enemy enemy;
+        int pos = 0;
 
         while (true)
         {
 
-            int pos = Get().GetSpawnPoint();
-
-            while (Get().lastEnemyAtSpawnPoint[pos] != null && Vector3.Distance(Get().lastEnemyAtSpawnPoint[pos].Position, Get().spawnPoints[pos].position) <= 10f)
+            while (true)//Get().lastEnemyAtSpawnPoint[pos] != null && Vector3.Distance(Get().lastEnemyAtSpawnPoint[pos].Position, Get().spawnPoints[pos].position) <= 10f)
             {
-                yield return new WaitForSeconds(0.1f); // Random.Range(0.1f, (100 - Mathf.Log(Gamster.Get().killedEnemys) - Gamster.Get().killedEnemys)));
+                pos = Get().GetSpawnPoint();
 
+                if (Get().lastEnemyAtSpawnPoint[pos] != null && Vector3.Distance(Get().lastEnemyAtSpawnPoint[pos].Position, Get().spawnPoints[pos].position) <= 10f)
+                {
+                    yield return new WaitForEndOfFrame();
+                    continue;
+                }
+                else
+                {
+                    break;
+                }
             }
 
             if (Gamster.Get().enemys.Where(e => e.type == (Enums.EnemyType)index).Count() < Gamster.Get().enemyNums[index - 1])
