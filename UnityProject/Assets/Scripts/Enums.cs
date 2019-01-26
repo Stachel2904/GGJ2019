@@ -17,3 +17,11 @@ public static class Enums
     };
 }
 
+public static class Extention
+{
+    public static Vector3 GetOrthogonalVectorWithoutY(this Vector3 me, Vector3 other)
+    {
+        return new Vector3(me.y * other.z - me.z * other.y, 0, me.x * other.y - me.y * other.x);
+    }
+}
+

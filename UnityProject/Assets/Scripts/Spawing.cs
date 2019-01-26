@@ -51,7 +51,7 @@ public class Spawing : MonoBehaviour
 
             int pos = Get().GetSpawnPoint();
 
-            while (Get().lastEnemyAtSpawnPoint[pos] != null && Vector3.Distance(Get().lastEnemyAtSpawnPoint[pos].Position, Get().spawnPoints[pos]) <= 10f)
+            while (Get().lastEnemyAtSpawnPoint[pos] != null && Vector3.Distance(Get().lastEnemyAtSpawnPoint[pos].Position, Get().spawnPoints[pos].position) <= 10f)
             {
                 yield return new WaitForSeconds(0.1f); // Random.Range(0.1f, (100 - Mathf.Log(Gamster.Get().killedEnemys) - Gamster.Get().killedEnemys)));
 
@@ -59,7 +59,7 @@ public class Spawing : MonoBehaviour
 
             if (Gamster.Get().enemys.Where(e => e.type == (Enums.EnemyType)index).Count() < Gamster.Get().enemyNums[index - 1])
             {
-                enemy = Instantiate<Enemy>(Resources.Load<Enemy>(Enums.Prefabs[(Enums.EnemyType)index]), Get().spawnPoints[pos], Quaternion.Euler(Vector3.zero));
+                enemy = Instantiate<Enemy>(Resources.Load<Enemy>(Enums.Prefabs[(Enums.EnemyType)index]), Get().spawnPoints[pos].position, Quaternion.Euler(Vector3.zero));
 
                 enemy.type = (Enums.EnemyType)index;
 

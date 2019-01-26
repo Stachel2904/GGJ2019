@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
@@ -29,7 +30,8 @@ public class Enemy : MonoBehaviour
 
     public void Start()
     {
-
+        NavMeshAgent agent = GetComponent<NavMeshAgent>();
+        agent.destination = GetTarget();
     }
 
     /// <summary>
@@ -43,6 +45,7 @@ public class Enemy : MonoBehaviour
             return;
         }
 
+        //this.transform.Rotate(Vector3.up * 180);
         MoveToTarget();
     }
 
@@ -52,12 +55,11 @@ public class Enemy : MonoBehaviour
     /// </summary>
     public virtual void MoveToTarget()
     {
-        this.transform.LookAt(GetTarget());
+        Vector3 dir = DodgePlayer();
+        this.transform.LookAt(dir);
         this.transform.Rotate(Vector3.up*180);
-
-
-
-        this.Position = DodgePlayer();
+        
+        this.Position = dir;
     }
 
     /// <summary>
@@ -66,16 +68,7 @@ public class Enemy : MonoBehaviour
     /// <returns>Returns Vector3 with move direction.</returns>
     public virtual Vector3 DodgePlayer()
     {
-        Vector3 playerPos = GameObject.Find("Ball").GetComponent<Transform>().position;
-
-        float dist = Vector3.Distance(Position, playerPos);
-
-        if (dist <= 50)
-        {
-            return Vector3.Cross(playerPos, Position)*10;
-        }
-
-        return GetTarget();
+        return Vector3.one;
     }
 
     /// <summary>
