@@ -1019,8 +1019,8 @@ MonoBehaviour:
     lookSmooth: 100
     distanceFromTarget: 0
     zoomSmooth: 10
-    maxZoom: 30
-    minZoom: -5
+    maxZoom: -1
+    minZoom: -20
     smoothFollow: 1
     smooth: 0.05
     newDistance: -8
