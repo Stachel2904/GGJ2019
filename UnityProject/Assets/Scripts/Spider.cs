@@ -9,6 +9,13 @@ public sealed class Spider : Enemy
 
     }
 
+    private void Start()
+    {
+        //GameObject.Find("SoundManager").AddComponent<SoundManager>().playSound("creepingSpider");
+        AudioSource.FindObjectOfType<AudioSource>().Play();
+
+    }
+
     public override void UpdateEnemy()
     {
         base.UpdateEnemy();
