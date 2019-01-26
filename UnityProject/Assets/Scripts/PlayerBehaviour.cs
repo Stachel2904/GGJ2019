@@ -12,6 +12,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         CurrentLivePoints -= amount;
         HUDManager.Get().UpdateLPBar(CurrentLivePoints, 1000);
+
         if(CurrentLivePoints <= 0)
         {
             GameOver();
@@ -23,6 +24,6 @@ public class PlayerBehaviour : MonoBehaviour
         HUDManager.Get().LoseScreen.SetActive(true);
         Time.timeScale = 0;
         Cursor.visible = true;
-        HUDManager.Get().LoseScreen.transform.Find("Score").gameObject.GetComponent<Text>().text = CurrentScorePoints.ToString();
+        HUDManager.Get().LoseScreen.transform.Find("Score").gameObject.GetComponent<Text>().text = (Gamster.Get().killedEnemys * 25).ToString();
     }
 }

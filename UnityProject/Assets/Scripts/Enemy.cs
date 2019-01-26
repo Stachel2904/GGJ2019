@@ -105,6 +105,11 @@ public class Enemy : MonoBehaviour
         return dist;
     }
 
+    protected Vector3 GetPlayerDirection()
+    {
+        return GameObject.Find("Ball").GetComponent<Transform>().forward;
+    }
+
     private float DistanceToTarget()
     {
         return Vector3.Distance(this.Position, GetTarget());
@@ -114,7 +119,8 @@ public class Enemy : MonoBehaviour
     {
         if (DistanceToTarget() <= 5)
         {
-            Gamster.Get().MasterLife -= 5;
+            GameObject.Find("Player").GetComponent<PlayerBehaviour>().RemoveLivePoints(50);
+            //Gamster.Get().MasterLife -= 5;
             TryRemove(true);
         }
     }
@@ -143,7 +149,6 @@ public class Enemy : MonoBehaviour
                 return true;
             }
         }
-        
 
         return false;
     }
