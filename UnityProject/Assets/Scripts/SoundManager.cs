@@ -7,13 +7,6 @@ public class SoundManager : MonoBehaviour
     public AudioClip creepingSpider;
     public AudioClip squishSpider;
 
-    public AudioSource audiosource;
-
-    private void Awake()
-    {
-        audiosource.GetComponent<AudioSource>();
-    }
-
     public void playSound(AudioSource audioSource, string clip, float delay = 0f)
     {
         switch(clip)
