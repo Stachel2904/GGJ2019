@@ -73,6 +73,12 @@ public class Enemy : MonoBehaviour
         this.transform.Rotate(Vector3.up*180);
         
         this.Position = dir;
+
+        if(Vector3.Distance(this.gameObject.transform.position, Gamster.Get().Target.position) < 1.0f)
+        {
+            GameObject.Find("Player").GetComponent<PlayerBehaviour>().RemoveLivePoints(50);
+            TryDestroy();
+        }
     }
 
     /// <summary>
@@ -112,9 +118,9 @@ public class Enemy : MonoBehaviour
     {
         if (Gamster.Get().enemys.Remove(this))
         {
-            Destroy(this);
+            Destroy(this.gameObject);
             Gamster.Get().killedEnemys++;
-
+            GameObject.Find("Player").GetComponent<PlayerBehaviour>().CurrentScorePoints += 25;
             return true;
         }
 
