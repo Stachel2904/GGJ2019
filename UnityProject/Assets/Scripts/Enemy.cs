@@ -123,6 +123,7 @@ public class Enemy : MonoBehaviour
 
     public IEnumerator Squish()
     {
+
         Destroy(this.gameObject.GetComponent<BoxCollider>());
         Destroy(this.gameObject.GetComponent<Animator>());
         Gamster.Get().enemys.Remove(this);
@@ -144,6 +145,7 @@ public class Enemy : MonoBehaviour
     {
         if(other.gameObject.name == "Player" && !ded)
         {
+            GameObject.Find("SoundManager").GetComponent<SoundManager>().playSound(this.gameObject.GetComponent<AudioSource>(), "squishSpider");
             ded = true;
             StartCoroutine(Squish());
         }
