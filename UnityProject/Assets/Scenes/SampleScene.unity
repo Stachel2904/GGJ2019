@@ -1010,9 +1010,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 730811310}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10117f6701d72784b96606b5106bc511, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b14f2ea94524144fa55b86739846e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 459901640}
+  position:
+    targetPosOffset: {x: 0, y: 1, z: 0}
+    lookSmooth: 100
+    distanceFromTarget: 0
+    zoomSmooth: 10
+    maxZoom: -1
+    minZoom: -20
+    smoothFollow: 1
+    smooth: 0.05
+    newDistance: -8
+    adjustmenDistance: 0
+  orbit:
+    xRotation: -20
+    yRotation: -180
+    maxXRotation: 25
+    minXRotation: -50
+    vOrbitSmooth: 150
+    hOrbitSmooth: 150
+  collision:
+    collisionLayer:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    colliding: 0
+    adjustedCameraClipPoints: []
+    desiredCameraClipPoints: []
 --- !u!1 &787839576
 GameObject:
   m_ObjectHideFlags: 0
@@ -6303,7 +6329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c406f4d2005b34c99cc45ab618c340, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LoseScreen: {fileID: 287322828}
+  LoseScreen: {fileID: 0}
   WinScreen: {fileID: 0}
 --- !u!1 &1595058520
 GameObject:
