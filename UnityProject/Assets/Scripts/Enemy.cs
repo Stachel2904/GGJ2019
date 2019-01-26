@@ -74,12 +74,6 @@ public class Enemy : MonoBehaviour
         this.transform.Rotate(Vector3.up*180);
         
         this.Position = dir;
-
-        //if(CheckTargetReached())
-        //{
-        //    GameObject.Find("Player").GetComponent<PlayerBehaviour>().RemoveLivePoints(50);
-        //    TryRemove(true);
-        //}
     }
 
     /// <summary>

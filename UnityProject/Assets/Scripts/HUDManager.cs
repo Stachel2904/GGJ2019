@@ -16,13 +16,11 @@ public class HUDManager : MonoBehaviour
     // Update is called once per frame
     public void UpdateLPBar(int currentLP, int maxLP)
     {
-        RectTransform mask = this.gameObject.transform.Find("LPBarMask").GetComponent<RectTransform>();
+        RectTransform bar = GameObject.Find("LPBar").GetComponent<RectTransform>();
 
-        Vector3 newMaskPos = new Vector2(-1 * (Screen.width / maxLP) * (maxLP - currentLP) + Screen.width / 2, mask.position.y);
+        Vector3 newBarPos = new Vector2(-1 * (bar.rect.width / maxLP) * (maxLP - currentLP), bar.localPosition.y);
         
-        Vector3 Movement = mask.position - newMaskPos;
-        mask.position = newMaskPos;
-        mask.GetChild(0).position += Movement;
+        bar.localPosition = newBarPos;
     }
 
     public void Exit()
