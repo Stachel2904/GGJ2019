@@ -13,7 +13,7 @@ public class Spawing : MonoBehaviour
     private Transform[] spawnPoints;
     public Transform[] SpawnPoints { get { return spawnPoints; } set { spawnPoints = value; } }
 
-    private Enemy[] lastEnemyAtSpawnPoint = new Enemy[2];
+    private Enemy[] lastEnemyAtSpawnPoint;
 
     public static Spawing Get()
     {
@@ -35,6 +35,12 @@ public class Spawing : MonoBehaviour
         return UnityEngine.Random.Range(0, numSpawnPoints);
     }
 
+    public bool GetSpawnPoint(out int pos)
+    {
+        pos = UnityEngine.Random.Range(0, numSpawnPoints);
+        return true;
+    }
+
     /// <summary>
     /// Spawns one Enemy at one of the spawning points.
     /// </summary>
@@ -45,13 +51,14 @@ public class Spawing : MonoBehaviour
         int index = Gamster.Get().coRoutines + 1;
         Gamster.Get().coRoutines++;
         Enemy enemy;
+        int pos;
 
         while (true)
         {
 
-            int pos = Get().GetSpawnPoint();
+            //int pos = Get().GetSpawnPoint();
 
-            while (Get().lastEnemyAtSpawnPoint[pos] != null && Vector3.Distance(Get().lastEnemyAtSpawnPoint[pos].Position, Get().spawnPoints[pos].position) <= 10f)
+            while (Get().GetSpawnPoint(out pos) && Get().lastEnemyAtSpawnPoint[pos] != null && Vector3.Distance(Get().lastEnemyAtSpawnPoint[pos].Position, Get().spawnPoints[pos].position) <= 10f)
             {
                 yield return new WaitForSeconds(0.1f); // Random.Range(0.1f, (100 - Mathf.Log(Gamster.Get().killedEnemys) - Gamster.Get().killedEnemys)));
 

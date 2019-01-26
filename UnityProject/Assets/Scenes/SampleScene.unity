@@ -518,7 +518,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 459901637}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cb978be7bde4aa4790a0905b3675ac1, type: 3}
+  m_Script: {fileID: 11500000, guid: 32555dfc9e8afae48a86a80299960763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &534669902
@@ -6122,6 +6122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43ecc0b23d7ffd14b8480a09558a8056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  masterLife: 0
   enemys: []
   enemyNums: 14000000
   Target: {fileID: 980827634}
@@ -6298,7 +6299,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1583182013}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11097f3b398f76a41967e398637e1978, type: 3}
+  m_Script: {fileID: 11500000, guid: 86c406f4d2005b34c99cc45ab618c340, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   LoseScreen: {fileID: 287322828}
