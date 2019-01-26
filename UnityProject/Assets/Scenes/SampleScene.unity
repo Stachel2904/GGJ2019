@@ -6329,7 +6329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c406f4d2005b34c99cc45ab618c340, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LoseScreen: {fileID: 0}
+  LoseScreen: {fileID: 287322828}
   WinScreen: {fileID: 0}
 --- !u!1 &1595058520
 GameObject:
