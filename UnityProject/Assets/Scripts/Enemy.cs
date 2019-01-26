@@ -74,12 +74,6 @@ public class Enemy : MonoBehaviour
         this.transform.Rotate(Vector3.up*180);
         
         this.Position = dir;
-
-        if(Vector3.Distance(this.gameObject.transform.position, Gamster.Get().Target.position) < 1.0f)
-        {
-            GameObject.Find("Player").GetComponent<PlayerBehaviour>().RemoveLivePoints(50);
-            TryDestroy();
-        }
     }
 
     /// <summary>
