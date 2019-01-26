@@ -16,9 +16,7 @@ public sealed class Spider : Enemy
 
     public override Vector3 DodgePlayer()
     {
-        Vector3 playerPos = GameObject.Find("Ball").GetComponent<Transform>().position;
-
-        float dist = Vector3.Distance(Position, playerPos);
+        float dist = GetDistanceToPlayer();
 
         if (dist <= 50)
         {

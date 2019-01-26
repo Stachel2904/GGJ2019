@@ -28,10 +28,12 @@ public class Enemy : MonoBehaviour
 
     private bool ded;
 
+    //NavMeshAgent agent;
+
     public void Start()
     {
-        NavMeshAgent agent = GetComponent<NavMeshAgent>();
-        agent.destination = GetTarget();
+        //agent = GetComponent<NavMeshAgent>();
+        //agent.destination = GetTarget();
     }
 
     /// <summary>
@@ -45,8 +47,19 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        //this.transform.Rotate(Vector3.up * 180);
         MoveToTarget();
+
+        //if (GetDistanceToPlayer() <= 40f)
+        //{
+        //    agent.isStopped = true;
+        //    MoveToTarget();
+        //}
+        //else
+        //{
+        //    this.transform.Rotate(Vector3.up * 180);
+        //    agent.isStopped = false;
+        //}
+
     }
 
     /// <summary>
@@ -80,6 +93,15 @@ public class Enemy : MonoBehaviour
         Vector3 dir = Gamster.Get().Target.position;
 
         return new Vector3(dir.x, 0, dir.z);
+    }
+
+    protected float GetDistanceToPlayer()
+    {
+        Vector3 playerPos = GameObject.Find("Ball").GetComponent<Transform>().position;
+
+        float dist = Vector3.Distance(Position, playerPos);
+
+        return dist;
     }
 
     /// <summary>
