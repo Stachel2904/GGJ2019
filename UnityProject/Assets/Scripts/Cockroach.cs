@@ -2,20 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public sealed class Spider : Enemy
+public class Cockroach : Enemy
 {
-    public Spider() : base()
-    {
-
-    }
-
-    private void Start()
-    {
-        //GameObject.Find("SoundManager").AddComponent<SoundManager>().playSound("creepingSpider");
-        AudioSource.FindObjectOfType<AudioSource>().Play();
-
-    }
-
     public override void UpdateEnemy()
     {
         base.UpdateEnemy();
@@ -28,7 +16,10 @@ public sealed class Spider : Enemy
 
     public override Vector3 DodgePlayer()
     {
-        float dist = GetDistanceToPlayer();
+        //ToDo other implementation
+        Vector3 playerPos = GameObject.Find("Ball").GetComponent<Transform>().position;
+
+        float dist = Vector3.Distance(Position, playerPos);
 
         if (dist <= 50)
         {

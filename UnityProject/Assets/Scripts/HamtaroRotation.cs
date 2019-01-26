@@ -81,7 +81,6 @@ public class HamtaroRotation : MonoBehaviour
                 {
                     this.gameObject.GetComponent<AudioSource>().Play();
                 }
-                Debug.Log("Waiting for " + 1 / (RollSoundFrequency + 1) + "s.");
                 yield return new WaitForSeconds(1 / (RollSoundFrequency + 1));
             }
 

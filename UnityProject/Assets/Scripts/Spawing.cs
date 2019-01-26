@@ -1,5 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
+using System;
 using UnityEngine;
 
 public class Spawing : MonoBehaviour
@@ -31,7 +32,7 @@ public class Spawing : MonoBehaviour
     /// <returns>Returns Vector3 with Position of SpawingPoint.</returns>
     public int GetSpawnPoint()
     {
-        return Random.Range(0, numSpawnPoints);
+        return UnityEngine.Random.Range(0, numSpawnPoints);
     }
 
     /// <summary>
@@ -39,20 +40,34 @@ public class Spawing : MonoBehaviour
     /// </summary>
     /// <param name="type">EnemyType for the enemy.</param>
     /// <returns>IEnumerator</returns>
-    public static IEnumerator SpawnEnemy(Enums.EnemyType type)
+    public static IEnumerator SpawnEnemy()
     {
-        int pos = Get().GetSpawnPoint();
-        
-        while (Get().lastEnemyAtSpawnPoint[pos] != null && Vector3.Distance(Get().lastEnemyAtSpawnPoint[pos].Position, Get().spawnPoints[pos].position) <= 10f)
-        {
-            yield return new WaitForSeconds(0.1f); // Random.Range(0.1f, (100 - Mathf.Log(Gamster.Get().killedEnemys) - Gamster.Get().killedEnemys)));
-            
-        }
-        Enemy enemy = Instantiate<Enemy>(Resources.Load<Enemy>(Enums.Prefabs[type]), Get().spawnPoints[pos].position, Quaternion.Euler(Vector3.zero));
+        int index = Gamster.Get().coRoutines + 1;
+        Gamster.Get().coRoutines++;
+        Enemy enemy;
 
-        enemy.type = type;
-        
-        Gamster.Get().enemys.Add(enemy);
-        Get().lastEnemyAtSpawnPoint[pos] = enemy;
+        while (true)
+        {
+
+            int pos = Get().GetSpawnPoint();
+
+            while (Get().lastEnemyAtSpawnPoint[pos] != null && Vector3.Distance(Get().lastEnemyAtSpawnPoint[pos].Position, Get().spawnPoints[pos].position) <= 10f)
+            {
+                yield return new WaitForSeconds(0.1f); // Random.Range(0.1f, (100 - Mathf.Log(Gamster.Get().killedEnemys) - Gamster.Get().killedEnemys)));
+
+            }
+
+            if (Gamster.Get().enemys.Where(e => e.type == (Enums.EnemyType)index).Count() < Gamster.Get().enemyNums[index - 1])
+            {
+                enemy = Instantiate<Enemy>(Resources.Load<Enemy>(Enums.Prefabs[(Enums.EnemyType)index]), Get().spawnPoints[pos].position, Quaternion.Euler(Vector3.zero));
+
+                enemy.type = (Enums.EnemyType)index;
+
+                Gamster.Get().enemys.Add(enemy);
+                Get().lastEnemyAtSpawnPoint[pos] = enemy;
+            }
+
+            yield return new WaitUntil(() => Gamster.Get().enemys.Where(e => e.type == (Enums.EnemyType)index).Count() < Gamster.Get().enemyNums[index - 1]);
+        }
     }
 }

@@ -11,6 +11,7 @@ public class Gamster : MonoBehaviour
     public Transform Target;
 
     public int killedEnemys;
+    public int coRoutines;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,12 @@ public class Gamster : MonoBehaviour
         Cursor.visible = false;
         enemys = new List<Enemy>();
         killedEnemys = 0;
+        coRoutines = 0;
+
+        for (int i = 1; i <Enum.GetNames(typeof(Enums.EnemyType)).Length; i++)
+        {
+            StartCoroutine(Spawing.SpawnEnemy());
+        }
     }
 
     // Update is called once per frame
@@ -28,14 +35,7 @@ public class Gamster : MonoBehaviour
             enemys[i].UpdateEnemy();
         }
 
-        for (int i = 1; i < Enum.GetNames(typeof(Enums.EnemyType)).Length ; i++)
-        {
-            if (enemys.Where(e => e.type == (Enums.EnemyType) i).Count() < enemyNums[i-1])
-            {
-                StartCoroutine(Spawing.SpawnEnemy(Enums.EnemyType.Spider));
-                //StartCoroutine(Spawing.SpawnEnemy((Enums.EnemyType) i));
-            }
-        }
+        
     }
 
     public static Gamster Get()

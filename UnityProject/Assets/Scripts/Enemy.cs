@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
@@ -27,9 +28,12 @@ public class Enemy : MonoBehaviour
 
     private bool ded;
 
+    //NavMeshAgent agent;
+
     public void Start()
     {
-
+        //agent = GetComponent<NavMeshAgent>();
+        //agent.destination = GetTarget();
     }
 
     /// <summary>
@@ -44,6 +48,18 @@ public class Enemy : MonoBehaviour
         }
 
         MoveToTarget();
+
+        //if (GetDistanceToPlayer() <= 40f)
+        //{
+        //    agent.isStopped = true;
+        //    MoveToTarget();
+        //}
+        //else
+        //{
+        //    this.transform.Rotate(Vector3.up * 180);
+        //    agent.isStopped = false;
+        //}
+
     }
 
     /// <summary>
@@ -52,10 +68,20 @@ public class Enemy : MonoBehaviour
     /// </summary>
     public virtual void MoveToTarget()
     {
-        this.transform.LookAt(GetTarget());
+        Vector3 dir = DodgePlayer();
+        this.transform.LookAt(dir);
         this.transform.Rotate(Vector3.up*180);
+        
+        this.Position = dir;
+    }
 
-        this.Position = GetTarget();
+    /// <summary>
+    /// Trys to dodge the Player, with a orthogonal movement direction.
+    /// </summary>
+    /// <returns>Returns Vector3 with move direction.</returns>
+    public virtual Vector3 DodgePlayer()
+    {
+        return Vector3.one;
     }
 
     /// <summary>
@@ -67,6 +93,15 @@ public class Enemy : MonoBehaviour
         Vector3 dir = Gamster.Get().Target.position;
 
         return new Vector3(dir.x, 0, dir.z);
+    }
+
+    protected float GetDistanceToPlayer()
+    {
+        Vector3 playerPos = GameObject.Find("Ball").GetComponent<Transform>().position;
+
+        float dist = Vector3.Distance(Position, playerPos);
+
+        return dist;
     }
 
     /// <summary>
