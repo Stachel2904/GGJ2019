@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HUDManager : MonoBehaviour
 {
@@ -26,5 +27,20 @@ public class HUDManager : MonoBehaviour
     public void Exit()
     {
         Application.Quit();
+    }
+
+    public void returnToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void pauseGame()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void continueGame()
+    {
+        Time.timeScale = 1;
     }
 }
