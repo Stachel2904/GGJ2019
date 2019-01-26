@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -483,7 +483,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 459901637}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 15, z: 0}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 20, y: 20, z: 20}
   m_Children:
   - {fileID: 1029411478}
@@ -518,7 +518,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 459901637}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cb978be7bde4aa4790a0905b3675ac1, type: 3}
+  m_Script: {fileID: 11500000, guid: 32555dfc9e8afae48a86a80299960763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &534669902
@@ -1010,9 +1010,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 730811310}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10117f6701d72784b96606b5106bc511, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b14f2ea94524144fa55b86739846e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 459901640}
+  position:
+    targetPosOffset: {x: 0, y: 1, z: 0}
+    lookSmooth: 100
+    distanceFromTarget: 0
+    zoomSmooth: 10
+    maxZoom: 30
+    minZoom: -5
+    smoothFollow: 1
+    smooth: 0.05
+    newDistance: -8
+    adjustmenDistance: 0
+  orbit:
+    xRotation: -20
+    yRotation: -180
+    maxXRotation: 25
+    minXRotation: -50
+    vOrbitSmooth: 150
+    hOrbitSmooth: 150
+  collision:
+    collisionLayer:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    colliding: 0
+    adjustedCameraClipPoints: []
+    desiredCameraClipPoints: []
 --- !u!1 &787839576
 GameObject:
   m_ObjectHideFlags: 0
@@ -6122,6 +6148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43ecc0b23d7ffd14b8480a09558a8056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  masterLife: 0
   enemys: []
   enemyNums: 14000000
   Target: {fileID: 980827634}
@@ -6298,10 +6325,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1583182013}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11097f3b398f76a41967e398637e1978, type: 3}
+  m_Script: {fileID: 11500000, guid: 86c406f4d2005b34c99cc45ab618c340, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LoseScreen: {fileID: 287322828}
+  LoseScreen: {fileID: 0}
   WinScreen: {fileID: 0}
 --- !u!1 &1595058520
 GameObject:

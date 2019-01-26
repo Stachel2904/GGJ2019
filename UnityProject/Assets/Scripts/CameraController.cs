@@ -35,26 +35,8 @@ public class CameraController : MonoBehaviour
         public float hOrbitSmooth = 150;
     }
 
-    [System.Serializable]
-    public class InputSettings
-    {
-        public string ORBIT_HORIZONTAL_SNAP = "OrbitHorizontalSnap";
-        public string ORBIT_HORIZONTAL = "OrbitHorizontal";
-        public string ORBIT_VERTICAL = "OrbitVertical";
-        public string ZOOM = "Mouse ScrollWheel";
-    }
-
-    [System.Serializable]
-    public class DebugSettings
-    {
-        public bool drawDesiredCollisionLines = true;
-        public bool drawAdjustedCollisionLines = true;
-    }
-
     public PositionSettings position = new PositionSettings();
     public OrbitSettings orbit = new OrbitSettings();
-    public InputSettings input = new InputSettings();
-    public DebugSettings debug = new DebugSettings();
     public CollisionHandler collision = new CollisionHandler();
     
 
@@ -62,72 +44,25 @@ public class CameraController : MonoBehaviour
     Vector3 destination = Vector3.zero;
     Vector3 adjustedDestination = Vector3.zero;
     Vector3 camVel = Vector3.zero;
-    CharacterController charController;
-    float vOrbitInput, hOrbitInput, zoomInput, hOrbitSnapInput;
-
-
-    
-
+    float vOrbitInput, hOrbitInput, zoomInput;
 
     // Use this for initialization
     void Start()
     {
-        SetCameraTarget(target);
-
-        vOrbitInput = hOrbitInput = zoomInput = hOrbitSnapInput = 0;
+        vOrbitInput = hOrbitInput = zoomInput = 0;
 
         MoveToTarget();
 
         collision.Initialize(Camera.main);
         collision.UpdateCameraClipPoints(transform.position, transform.rotation, ref collision.adjustedCameraClipPoints);
         collision.UpdateCameraClipPoints(destination, transform.rotation, ref collision.desiredCameraClipPoints);
-
-        
-
-        /*targetPos = target.position + position.targetPosOffset;
-        destination = Quaternion.Euler(orbit.xRotation, orbit.yRotation + target.eulerAngles.y, 0) * -Vector3.forward * position.distanceFromTarget;
-        destination += target.position;
-        transform.position = destination;*/
-    }
-
-
-    public void SetCameraTarget(Transform t)
-    {
-        target = t;
-
-        if (target != null)
-        {
-            if (target.GetComponent<CharacterController>())
-            {
-                charController = target.GetComponent<CharacterController>();
-            }
-            else
-                Debug.LogError("The cams target needs a character controller");
-        }
-        else
-            Debug.LogError("Your Cam needs a target.");
     }
 
     void GetInput()
     {
-        if (Input.GetKey(KeyCode.Mouse1))
-        {
-            Cursor.visible = false;
-            
-            hOrbitInput = Input.GetAxisRaw(input.ORBIT_HORIZONTAL);
-            vOrbitInput = Input.GetAxisRaw(input.ORBIT_VERTICAL);
-
-
-        }
-        if (Input.GetKeyUp(KeyCode.Mouse1))
-        {
-            Cursor.visible = true;
-        }
-        
-        hOrbitSnapInput = Input.GetAxisRaw(input.ORBIT_HORIZONTAL_SNAP);
-        zoomInput = Input.GetAxisRaw(input.ZOOM);
-
-        
+        hOrbitInput = -Input.GetAxisRaw("Mouse X");
+        vOrbitInput = -Input.GetAxisRaw("Mouse Y");
+        zoomInput = Input.GetAxisRaw("Mouse ScrollWheel");
     }
 
     // Update is called once per frame
@@ -147,19 +82,7 @@ public class CameraController : MonoBehaviour
 
         collision.UpdateCameraClipPoints(transform.position, transform.rotation, ref collision.adjustedCameraClipPoints);
         collision.UpdateCameraClipPoints(destination, transform.rotation, ref collision.desiredCameraClipPoints);
-
-        for (int i = 0; i < 5; i++)
-        {
-            if (debug.drawDesiredCollisionLines)
-            {
-                Debug.DrawLine(targetPos, collision.desiredCameraClipPoints[i], Color.white);
-            }
-            if (debug.drawAdjustedCollisionLines)
-            {
-                Debug.DrawLine(targetPos, collision.adjustedCameraClipPoints[i], Color.green);
-            }
-        }
-
+        
         collision.CheckColliding(targetPos);
         position.adjustmenDistance = collision.GetAdjustedDistanceWithRayFrom(targetPos);
     }
@@ -201,11 +124,6 @@ public class CameraController : MonoBehaviour
 
     void OrbitTarget()
     {
-        if (hOrbitSnapInput > 0)
-        {
-            orbit.yRotation = 180;
-        }
-
         orbit.xRotation += -vOrbitInput * orbit.vOrbitSmooth * Time.deltaTime;
         orbit.yRotation += -hOrbitInput * orbit.hOrbitSmooth * Time.deltaTime;
 
@@ -292,7 +210,6 @@ public class CameraController : MonoBehaviour
             }
             return false;
         }
-
        
         public float GetAdjustedDistanceWithRayFrom(Vector3 from)
         {
@@ -317,8 +234,7 @@ public class CameraController : MonoBehaviour
             if (distance == -1)
                 return 0;
             else
-                return distance;
-            
+                return distance;            
         }
 
         public void CheckColliding(Vector3 targetPosition)
@@ -332,8 +248,5 @@ public class CameraController : MonoBehaviour
                 colliding = false;
             }
         }
-
-
     }
-
 }

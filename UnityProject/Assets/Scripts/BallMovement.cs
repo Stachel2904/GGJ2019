@@ -29,6 +29,7 @@ public class BallMovement : MonoBehaviour
         if(moveHorizontal != 0 || moveVertical != 0)
         {
             Vector3 movement = cam.transform.TransformDirection(new Vector3(moveHorizontal, 0.0f, moveVertical));
+            movement = new Vector3(movement.x, 0, movement.z);
 
             float factor = (Vector3.Angle(rb.velocity, movement)) / 180.0f * turnSpeed + 1;
             rb.velocity += movement * speed * factor * Time.deltaTime;
