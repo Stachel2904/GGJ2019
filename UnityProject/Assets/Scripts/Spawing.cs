@@ -6,12 +6,12 @@ using UnityEngine;
 public class Spawing : MonoBehaviour
 {
     [SerializeField]
-    private int numSpawnPoints = 2;
+    private int numSpawnPoints;
     public int NumSpawnPoints { get { return numSpawnPoints; } set { numSpawnPoints = value; } }
 
     [SerializeField]
-    private Vector3[] spawnPoints;
-    public Vector3[] SpawnPoints { get { return spawnPoints; } set { spawnPoints = value; } }
+    private Transform[] spawnPoints;
+    public Transform[] SpawnPoints { get { return spawnPoints; } set { spawnPoints = value; } }
 
     private Enemy[] lastEnemyAtSpawnPoint = new Enemy[2];
 
@@ -22,6 +22,7 @@ public class Spawing : MonoBehaviour
 
     public void Start()
     {
+        numSpawnPoints = SpawnPoints.Length;
         lastEnemyAtSpawnPoint = new Enemy[numSpawnPoints];
     }
 

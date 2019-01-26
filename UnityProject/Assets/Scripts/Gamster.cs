@@ -8,6 +8,7 @@ public class Gamster : MonoBehaviour
 {
     public List<Enemy> enemys;
     public int[] enemyNums;
+    public Transform Target;
 
     public int killedEnemys;
     public int coRoutines;

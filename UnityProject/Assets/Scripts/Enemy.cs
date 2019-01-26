@@ -25,6 +25,8 @@ public class Enemy : MonoBehaviour
 
     public Enums.EnemyType type;
 
+    private bool ded;
+
     public void Start()
     {
 
@@ -82,7 +84,7 @@ public class Enemy : MonoBehaviour
     /// <returns>Returns Vector3 position of target.</returns>
     public Vector3 GetTarget()
     {
-        Vector3 dir = GameObject.Find("Chair").GetComponent<Transform>().position;
+        Vector3 dir = Gamster.Get().Target.position;
 
         return new Vector3(dir.x, 0, dir.z);
     }
@@ -102,5 +104,33 @@ public class Enemy : MonoBehaviour
         }
 
         return false;
+    }
+
+    public IEnumerator Squish()
+    {
+        Destroy(this.gameObject.GetComponent<BoxCollider>());
+        Destroy(this.gameObject.GetComponent<Animator>());
+        Gamster.Get().enemys.Remove(this);
+        while(this.gameObject.transform.localScale.y - (Time.deltaTime / 10) > 0.0001f)
+        {
+            this.gameObject.transform.localScale = new Vector3(this.gameObject.transform.localScale.x, this.gameObject.transform.localScale.y - (Time.deltaTime / 10), this.gameObject.transform.localScale.z);
+            yield return new WaitForEndOfFrame();
+        }
+        yield return new WaitForSeconds(1);
+        while(this.gameObject.transform.localScale.x > 0 && this.gameObject.transform.localScale.z > 0)
+        {
+            this.gameObject.transform.localScale = new Vector3(this.gameObject.transform.localScale.x - (Time.deltaTime / 10), 0.0001f , this.gameObject.transform.localScale.z - (Time.deltaTime / 10));
+            yield return new WaitForEndOfFrame();
+        }
+       GameObject.Destroy(this.gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.name == "Player" && !ded)
+        {
+            ded = true;
+            StartCoroutine(Squish());
+        }
     }
 }
